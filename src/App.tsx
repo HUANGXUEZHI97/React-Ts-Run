@@ -1,10 +1,16 @@
-import { FC} from 'react';
+import { FC } from 'react';
 import './App.scss';
 import TicTacToe from './components/TicTacToe/index';
 
 const App: FC = () => {
+
   return (
-    <TicTacToe />
+    <div>
+      {/* 井字棋 */}
+      <TicTacToe />
+
+      
+    </div>
   )
 }
 
