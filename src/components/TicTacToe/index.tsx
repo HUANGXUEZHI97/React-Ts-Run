@@ -5,11 +5,13 @@ import './index.scss';
 
 type SquareProps = {
   value?: number | string,
+  isHightLight: boolean, // 是否高亮
   onClick:Function
 }
 
 type BoardProps = {
   squares: any[], // 井字棋盘
+  trail: number[], // 获得胜利的轨迹
   onClick: Function
 }
 
@@ -22,9 +24,9 @@ type GameProps = {
 
 
 // 棋盘内小格子
-const Square = (props:SquareProps) => {
+const Square = (props: SquareProps) => {  
   return (
-    <button className="square" style={{ backgroundColor:false ? '#ff030363' : '#fff'}} onClick={() => props.onClick()}>
+    <button className="square" style={{ backgroundColor: props.isHightLight ? '#ff030363' : '#fff'}} onClick={() => props.onClick()}>
       {props.value}
     </button>
   );
@@ -33,8 +35,8 @@ const Square = (props:SquareProps) => {
 // 棋盘
 class Board extends React.Component<BoardProps> {
 
-  renderSquare = (i: number) => {
-    return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} key={i} />;
+  renderSquare = (i: number) => {    
+    return <Square value={this.props.squares[i]} isHightLight={this.props.trail.includes(i)} onClick={() => this.props.onClick(i)} key={i} />;
   }
 
   render() {
@@ -104,7 +106,7 @@ class Game extends React.Component<Object, GameProps> {
   }
 
   // 判出胜者
-  calculateWinner(squares: any[]) {
+  calculateWinner(squares: any[]): null | {winner:string,winTrail: number[]} {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -119,7 +121,7 @@ class Game extends React.Component<Object, GameProps> {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i]
       if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
-        return squares[a]
+        return { winner: squares[a], winTrail: lines[i] }
       }
     }
     return null
@@ -143,12 +145,16 @@ class Game extends React.Component<Object, GameProps> {
   }
 
   render() {    
-    const { history, stepNumber,xIsNext,isReverseRecord} = this.state
+    const { history, stepNumber, xIsNext, isReverseRecord } = this.state
     const current = history[stepNumber]
 
-    const winner = this.calculateWinner(current.squares)
-    const status = winner ? `winner：${winner}` : `next player：${xIsNext ? 'X' : 'O'}`
-
+    const win = this.calculateWinner(current.squares)
+    const status = win
+      ? `winner：${win.winner}`
+      : stepNumber === 9
+        ? 'Result：draw!'
+        : `next player：${xIsNext ? 'X' : 'O'}`
+    
     let moves = history.map((step, move) => {
       const desc = move ? `Go To move #${move}` : 'Go To game start'
 
@@ -169,7 +175,7 @@ class Game extends React.Component<Object, GameProps> {
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={current.squares} onClick={ (i:number)=>this.handleClick(i)} />
+          <Board squares={current.squares} trail={win ? win.winTrail : []} onClick={ (i:number)=>this.handleClick(i)} />
         </div>
         <div className="game-info">
           <div>{status}</div>
