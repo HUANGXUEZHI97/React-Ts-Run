@@ -7,19 +7,18 @@ import CT from './components/UseContext/index';
 
 const App: FC = () => {
 
-  const App: FC = function () {
-    return (
-      <div>
-        {/* 井字/scrm/clue/page棋 */}
-        <TicTacToe />
+  return (
+    <div>
+      {/* 井字/scrm/clue/page棋 */}
+      <TicTacToe />
 
-        {/* hook */}
-        <SH />
+      {/* hook */}
+      <SH />
 
-        {/* use context */}
-        <CT />
-      </div>
-    );
-  };
+      {/* use context */}
+      <CT />
+    </div>
+  );
+};
 
-  export default App;
+export default App;
