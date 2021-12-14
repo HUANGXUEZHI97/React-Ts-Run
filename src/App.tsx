@@ -1,6 +1,9 @@
-import { FC } from 'react';
+import { FC} from 'react';
 import './App.scss';
 import TicTacToe from './components/TicTacToe/index'
+import SH from './components/UseHooks/state';
+import CT from './components/UseContext/index';
+
 
 const App: FC = () => {
 
@@ -8,6 +11,12 @@ const App: FC = () => {
     <div>
       {/* 井字棋 */}
       <TicTacToe />
+
+      {/* hook */}
+      <SH />
+
+      {/* use context */}
+      <CT />
     </div>
   )
 }
