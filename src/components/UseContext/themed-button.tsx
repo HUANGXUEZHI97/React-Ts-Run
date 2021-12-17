@@ -1,27 +1,19 @@
 import * as React from 'react';
-import {ThemeContext} from '../../context/Theme';
+import { ThemeContext } from '../../context/Theme';
 
-interface ThemedButtonProps {
-  onClick?:Function
-}
- 
-interface ThemedButtonState {
-  
-}
- 
-class ThemedButton extends React.Component<ThemedButtonProps, ThemedButtonState> {
-  static contextType?: React.Context<any> | undefined = ThemeContext
-
+class ThemedButton extends React.Component {
   render() {
-    let props = this.props
-    let theme = this.context
     return (
-      <button
-        onClick={()=>props.onClick}
-        style={{ background: theme.background }}
-      >
-        {props.children}
-      </button>
+      <ThemeContext.Consumer>
+        {({ theme, toggleTheme }) =>
+          <button
+            onClick={toggleTheme}
+            style={{ background: theme.background }}
+          >
+            {this.props.children}
+          </button>
+        }
+      </ThemeContext.Consumer>
     );
   }
 }

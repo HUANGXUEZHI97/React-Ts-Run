@@ -1,9 +1,9 @@
 import { FunctionComponent, useState, useEffect } from "react";
-interface SProps {
+interface UStateProps {
   
 }
 
-const S: FunctionComponent<SProps> = () => {
+const UState: FunctionComponent<UStateProps> = () => {
   
   const [count, setCount] = useState(0)
 
@@ -25,4 +25,4 @@ const S: FunctionComponent<SProps> = () => {
   );
 }
 
-export default S;
+export default UState;

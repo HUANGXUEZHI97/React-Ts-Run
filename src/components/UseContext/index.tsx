@@ -1,59 +1,50 @@
 import * as React from 'react';
-import { ThemeContext, themes} from '../../context/Theme';
+import { ThemeContext, themes } from '../../context/Theme';
 import ThemedButton from './themed-button';
 
+interface UContextProps {
 
-interface TBProps {
-  changeTheme: Function
 }
 
-const Toolbar = (props: TBProps) => {
-  return (
-    <ThemedButton onClick={props.changeTheme}>
-      Change Theme
-    </ThemedButton>
-  )
-}
-
-interface CTProps {
-  
-}
-
-interface CTState {
+interface UContextState {
   theme: {
     foreground: string,
     background: string
-  }
+  },
+  toggleTheme: () => void
 }
 
-class CT extends React.Component<CTProps, CTState> {
-  constructor(props: CTProps) {
+class UContext extends React.Component<UContextProps, UContextState> {
+  constructor(props: UContextProps) {
     super(props);
-    this.state = { theme: themes.light };
+
+    const toggleTheme = () => {
+      this.setState(state => ({
+        theme: state.theme === themes.dark
+          ? themes.light
+          : themes.dark
+      }))
+    }
+
+    this.state = {
+      theme: themes.light,
+      toggleTheme: toggleTheme,
+    };
   }
 
-  toggleTheme = ()=>{ 
-    this.setState(state => ({
-      theme: state.theme === themes.dark
-        ? themes.light
-        : themes.dark
-    }))
-  }
 
-  render() { 
+
+  render() {
     return (
       <div>
-        <ThemeContext.Provider value={this.state.theme}>
-          <Toolbar changeTheme={this.toggleTheme} />
-        </ThemeContext.Provider>
-        <div>
+        <ThemeContext.Provider value={this.state}>
           <ThemedButton>
-            Hello!
+            Change Theme
           </ThemedButton>
-        </div>
+        </ThemeContext.Provider>
       </div>
     );
   }
 }
 
-export default CT;
+export default UContext;

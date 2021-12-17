@@ -12,8 +12,7 @@ export const themes = {
 }
 
 // 系统主题：dark、light， 默认为：dark
-export const ThemeContext = createContext(
-  // theme: theme.dark,
-  // toggleTheme: () => { }
-  themes.dark
-)
+export const ThemeContext = createContext({
+  theme: themes.dark,
+  toggleTheme: () => { }
+})
