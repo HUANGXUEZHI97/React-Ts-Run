@@ -2,7 +2,7 @@
 import { FunctionComponent, useState } from 'react';
 import UState from './UState';
 import UContext from '../UseContext/index';
-import UReducer from './UReducer';
+import UReducer from './UReducerr';
 import UCallback from './UCallback';
 import UMemo from './UMemo';
 import Uref from './Uref';
