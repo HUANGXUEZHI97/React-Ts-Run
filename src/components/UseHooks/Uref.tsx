@@ -1,12 +1,8 @@
 import { FunctionComponent, useState, useRef, useCallback} from 'react';
 
-interface UrefProps {
-  
-}
-
-const Uref: FunctionComponent<UrefProps> = () => {
+const Uref: FunctionComponent = () => {
   const [height, setHeight] = useState(0);
-  const inputEl = useRef<HTMLInputElement>(null)
+  const inputEl = useRef<HTMLInputElement | null>(null)
   const measuredRef = useCallback(node => {
     if (node !== null) {
       setHeight(node.getBoundingClientRect().height);
@@ -21,8 +17,8 @@ const Uref: FunctionComponent<UrefProps> = () => {
   return (
     <div>
       {/* 此处使用了ref的时候，调用了measuredRef，相当于往measuredRef里面传递了dom本身 */}
-      <h2 ref={measuredRef}>Hello, world</h2>
-      <h3>The above header is {Math.round(height)}px tall</h3>
+      <h5 ref={measuredRef}>Hello, world</h5>
+      <h6>The above header is {Math.round(height)}px tall</h6>
       {/* 往inputEl上设置了当前dom */}
       <input ref={inputEl} type="text" />
       <button onClick={handleFocusInput}>Focus the input</button>

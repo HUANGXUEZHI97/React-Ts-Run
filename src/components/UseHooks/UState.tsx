@@ -1,11 +1,24 @@
-import { FunctionComponent, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
+
+
 interface UStateProps {
   
 }
 
-const UState: FunctionComponent<UStateProps> = () => {
+interface stateIUser { 
+  name: string,
+  age: number
+}
+
+const UState: FC<UStateProps> = () => {
   
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState<number>(0)
+
+  const [user, setUser] = useState<stateIUser>({} as stateIUser)
+
+  useEffect(() => {
+    setUser(() => ({ name: 'BATMAN', age: 22 }))
+  },[])
 
   // 相当于更新阶段：componentDidMount和componentDidUpdate
   useEffect(() => { 
@@ -18,9 +31,18 @@ const UState: FunctionComponent<UStateProps> = () => {
 
   return (
     <div>
-      <button onClick={() => setCount(0)}>reset</button>
-      <button onClick={() => setCount(count => count + 1)}>+1</button>
-      <span>count: {count}</span>
+      <p>
+        <button onClick={() => setCount(0)}>reset</button>
+        <button onClick={() => setCount(count => count + 1)}>+1</button>
+        <span>count: {count}</span>
+      </p>
+      <p>
+        个人信息：
+        <br />
+        <span>name:{user.name || ''}</span>
+        <br />
+        <span>age:{user.age || ''}</span>
+      </p>
     </div>
   );
 }
