@@ -4,7 +4,7 @@ import { FunctionComponent, useState} from 'react';
 const Change: FunctionComponent = () => {
   const [text, setText] = useState<string>('change me!')
 
-  const onChange = (e: React.FormEvent<HTMLInputElement>):void => {
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e: React.FormEvent<HTMLInputElement>):void => {
     setText(e.currentTarget.value)
   }
 
