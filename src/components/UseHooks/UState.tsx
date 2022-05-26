@@ -1,5 +1,4 @@
-import { FC, useState, useEffect } from "react";
-
+import { FC, useState, useEffect} from "react";
 
 interface UStateProps {
   
@@ -42,7 +41,7 @@ const UState: FC<UStateProps> = () => {
         <span>name:{user.name || ''}</span>
         <br />
         <span>age:{user.age || ''}</span>
-      </p>
+        </p>
     </div>
   );
 }
