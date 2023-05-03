@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-
+import Child from './child';
 
 interface UStateProps {
   
@@ -33,7 +33,7 @@ const UState: FC<UStateProps> = () => {
     <div>
       <p>
         <button onClick={() => setCount(0)}>reset</button>
-        <button onClick={() => setCount(count => count + 1)}>+1</button>
+        <button onClick={() => setCount(count => count  ? 0 : 1)}>+1</button>
         <span>count: {count}</span>
       </p>
       <p>
@@ -43,6 +43,7 @@ const UState: FC<UStateProps> = () => {
         <br />
         <span>age:{user.age || ''}</span>
       </p>
+      <Child count={count} />
     </div>
   );
 }
